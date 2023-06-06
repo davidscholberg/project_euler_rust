@@ -1,5 +1,12 @@
 use clap::{Parser, Subcommand};
 
+/// Gives convenient access to directories within the project.
+mod project_paths;
+/// Wrapper for Rune. Simplifies interfacing with rune.
+mod wrune;
+/// Handles running a Project Euler solution and returning the result.
+mod solution;
+
 /// Program for running Project Euler solutions.
 #[derive(Parser)]
 struct Cli {
@@ -17,6 +24,14 @@ enum Commands {
 }
 
 fn main() {
-    let _cli = Cli::parse();
-    println!("Hello, world!");
+    let cli = Cli::parse();
+    match cli.command {
+        Some(Commands::Solve { problem_number }) => {
+            match solution::run(problem_number) {
+                Ok(output) => println!("great success: {}", output),
+                Err(err) => eprintln!("oopsie: {}", err),
+            }
+        },
+        None => {}
+    }
 }
