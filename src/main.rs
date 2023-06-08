@@ -10,6 +10,9 @@ mod project_paths;
 /// Contains each solution.
 mod solutions;
 
+/// Contains utility code for use by solutions.
+mod utility;
+
 /// Program for running Project Euler solutions.
 #[derive(Parser)]
 struct Cli {
